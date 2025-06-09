@@ -48,29 +48,51 @@ const Index = () => {
     frontend: {
       title: "Frontend",
       icon: Code,
-      skills: ["React", "TailwindCSS", "JavaScript", "HTML/CSS"]
+      skills: [
+        { name: "React", icon: "⚛️" },
+        { name: "TailwindCSS", icon: "🎨" },
+        { name: "JavaScript", icon: "📜" },
+        { name: "HTML/CSS", icon: "🌐" }
+      ],
+      position: { top: "10%", left: "15%" }
     },
     backend: {
       title: "Backend",
       icon: Database,
-      skills: ["Python", "SQL", "Node.js"]
+      skills: [
+        { name: "Python", icon: "🐍" },
+        { name: "SQL", icon: "🗃️" },
+        { name: "Node.js", icon: "🟢" }
+      ],
+      position: { top: "15%", right: "20%" }
     },
     tools: {
       title: "Tools",
       icon: Wrench,
-      skills: ["Git", "VS Code", "Docker"]
+      skills: [
+        { name: "Git", icon: "🔧" },
+        { name: "VS Code", icon: "💻" },
+        { name: "Docker", icon: "🐳" }
+      ],
+      position: { top: "45%", left: "25%" }
     },
     learning: {
       title: "Learning",
       icon: BookOpen,
-      skills: ["TypeScript", "GraphQL", "AWS"]
-    },
-    other: {
-      title: "Languages",
-      icon: Globe,
-      skills: ["Portuguese (Native)", "English (Fluent)", "Spanish (Intermediate)"]
+      skills: [
+        { name: "TypeScript", icon: "📘" },
+        { name: "GraphQL", icon: "🔍" },
+        { name: "AWS", icon: "☁️" }
+      ],
+      position: { top: "35%", right: "15%" }
     }
   };
+
+  const otherSkills = [
+    { name: "Portuguese", level: "Native", icon: "🇧🇷" },
+    { name: "English", level: "Fluent", icon: "🇺🇸" },
+    { name: "Spanish", level: "Intermediate", icon: "🇪🇸" }
+  ];
 
   const filterTags = ["All", "React", "Python", "TailwindCSS", "Data", "SQL"];
 
@@ -116,15 +138,22 @@ const Index = () => {
 
   return (
     <div className="min-h-screen transition-all duration-300 relative">
-      {/* Paper texture overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-10 z-0"
+      {/* Enhanced craft paper texture overlay */}
+      <div className="fixed inset-0 pointer-events-none opacity-20 z-0"
            style={{
              backgroundImage: `
-               radial-gradient(circle at 20% 50%, transparent 20%, rgba(120, 119, 108, 0.3) 21%, rgba(120, 119, 108, 0.3) 34%, transparent 35%, transparent),
-               linear-gradient(0deg, rgba(0, 0, 0, 0.1) 50%, transparent 50%),
-               radial-gradient(circle at 40% 40%, rgba(120, 119, 108, 0.2) 0%, transparent 50%)
+               radial-gradient(circle at 25% 25%, rgba(139, 125, 107, 0.1) 0%, transparent 50%),
+               radial-gradient(circle at 75% 75%, rgba(160, 140, 115, 0.08) 0%, transparent 50%),
+               radial-gradient(circle at 50% 50%, rgba(120, 105, 88, 0.05) 0%, transparent 50%),
+               linear-gradient(45deg, transparent 48%, rgba(140, 120, 100, 0.02) 49%, rgba(140, 120, 100, 0.02) 51%, transparent 52%),
+               linear-gradient(-45deg, transparent 48%, rgba(130, 115, 95, 0.02) 49%, rgba(130, 115, 95, 0.02) 51%, transparent 52%),
+               repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(125, 110, 90, 0.01) 2px, rgba(125, 110, 90, 0.01) 4px),
+               repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(135, 120, 100, 0.01) 2px, rgba(135, 120, 100, 0.01) 4px),
+               radial-gradient(ellipse at 20% 80%, rgba(150, 130, 110, 0.03) 0%, transparent 50%),
+               radial-gradient(ellipse at 80% 20%, rgba(145, 125, 105, 0.03) 0%, transparent 50%),
+               repeating-radial-gradient(circle at 30% 40%, transparent 0%, transparent 6px, rgba(128, 112, 92, 0.005) 6px, rgba(128, 112, 92, 0.005) 8px)
              `,
-             backgroundSize: '50px 50px, 2px 2px, 30px 30px'
+             backgroundSize: '200px 200px, 150px 150px, 300px 300px, 20px 20px, 25px 25px, 8px 8px, 12px 12px, 180px 180px, 220px 220px, 40px 40px'
            }} />
 
       {/* Navigation */}
@@ -266,33 +295,83 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20 bg-secondary/10 relative">
+      {/* Skills Section - Redesigned with organic layout */}
+      <section id="skills" className="py-20 bg-secondary/10 relative min-h-screen">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Skills</h2>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Object.entries(skillCategories).map(([key, category]) => {
-                const IconComponent = category.icon;
-                const isOther = key === 'other';
-                return (
-                  <Card key={key} className={`p-6 hover:shadow-lg transition-all duration-300 ${isOther ? 'md:col-span-2 lg:col-span-3' : ''}`}>
-                    <div className="flex items-center space-x-3 mb-4">
+          <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Skills</h2>
+          
+          {/* Organic Skills Layout */}
+          <div className="relative max-w-6xl mx-auto h-96 mb-16">
+            {Object.entries(skillCategories).map(([key, category]) => {
+              const IconComponent = category.icon;
+              return (
+                <div
+                  key={key}
+                  className="absolute"
+                  style={category.position}
+                >
+                  {/* Hand-drawn style section divider */}
+                  <div className="relative">
+                    <div className="flex items-center space-x-3 mb-6">
                       <IconComponent className="h-6 w-6 text-primary" />
                       <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
+                      <div className="w-16 h-0.5 bg-primary/30 transform rotate-1"></div>
                     </div>
-                    <div className={`grid gap-3 ${isOther ? 'md:grid-cols-3' : 'grid-cols-1'}`}>
-                      {category.skills.map((skill) => (
-                        <div key={skill} className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-primary rounded-full"></div>
-                          <span className="text-muted-foreground">{skill}</span>
+                    
+                    {/* Skill Flashcards */}
+                    <div className="flex flex-wrap gap-3 max-w-64">
+                      {category.skills.map((skill, index) => (
+                        <div
+                          key={skill.name}
+                          className="group relative"
+                          style={{
+                            transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 6 - 3)}deg)`
+                          }}
+                        >
+                          <div className="w-16 h-16 bg-card border-2 border-border rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:rotate-0 flex items-center justify-center cursor-pointer">
+                            <span className="text-2xl">{skill.icon}</span>
+                          </div>
+                          
+                          {/* Hover tooltip */}
+                          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                            {skill.name}
+                          </div>
                         </div>
                       ))}
                     </div>
-                  </Card>
-                );
-              })}
-            </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Languages Section - Separate box at bottom */}
+          <div className="max-w-2xl mx-auto">
+            <Card className="p-8 border-2 border-dashed border-primary/30 bg-secondary/20">
+              <div className="flex items-center space-x-3 mb-6">
+                <Globe className="h-6 w-6 text-primary" />
+                <h3 className="text-xl font-semibold text-foreground">Languages</h3>
+                <div className="flex-1 h-0.5 bg-primary/30 transform -rotate-1"></div>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                {otherSkills.map((skill, index) => (
+                  <div
+                    key={skill.name}
+                    className="group relative text-center"
+                    style={{
+                      transform: `rotate(${(index % 2 === 0 ? 1 : -1) * 2}deg)`
+                    }}
+                  >
+                    <div className="bg-card border-2 border-border rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 hover:rotate-0 cursor-pointer">
+                      <div className="text-3xl mb-2">{skill.icon}</div>
+                      <div className="text-sm font-medium text-foreground">{skill.name}</div>
+                      <div className="text-xs text-muted-foreground">{skill.level}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
           </div>
         </div>
       </section>
