@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
@@ -19,6 +20,8 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-20 relative">
+      <TextureBackground variant="base" className="opacity-40 z-0" />
+      
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
         <div className="max-w-2xl mx-auto">

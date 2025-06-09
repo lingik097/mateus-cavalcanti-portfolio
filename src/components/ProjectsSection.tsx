@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import TextureBackground from './TextureBackground';
 
 const ProjectsSection: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -46,6 +46,8 @@ const ProjectsSection: React.FC = () => {
 
   return (
     <section id="projects" className="py-20 relative">
+      <TextureBackground variant="base" className="opacity-40 z-0" />
+      
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Projects</h2>
         

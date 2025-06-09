@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Code, Database, Wrench, BookOpen, Globe } from 'lucide-react';
+import TextureBackground from './TextureBackground';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = {
@@ -44,14 +44,16 @@ const SkillsSection: React.FC = () => {
   };
 
   const languages = [
-    { name: "Portuguese", level: "Native", icon: "🇧🇷" },
-    { name: "Spanish", level: "Fluent", icon: "🇪🇸" },
-    { name: "English", level: "Fluent", icon: "🇺🇸" },
-    { name: "Catalan", level: "Intermediate", icon: "data:image/png;base64,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" }
+    { name: "Portuguese", level: "Native", icon: "https://flagcdn.com/w80/br.png" },
+    { name: "Spanish", level: "Fluent", icon: "https://flagcdn.com/w80/es.png" },
+    { name: "English", level: "Fluent", icon: "https://flagcdn.com/w80/us.png" },
+    { name: "Catalan", level: "Intermediate", icon: "https://flagcdn.com/w80/cat.png" }
   ];
 
   return (
     <section id="skills" className="py-20 bg-secondary/10 relative">
+      <TextureBackground variant="base" className="opacity-40 z-0" />
+      
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Skills</h2>
         
@@ -173,7 +175,11 @@ const SkillsSection: React.FC = () => {
                   <div key={language.name} className="group relative">
                     <div className="bg-background border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
                       <div className="text-center">
-                        <div className="text-4xl mb-3">{language.icon}</div>
+                        <img 
+                          src={language.icon} 
+                          alt={language.name} 
+                          className="w-12 h-12 mx-auto mb-3 object-contain rounded-sm" 
+                        />
                         <div className="h-0 group-hover:h-12 transition-all duration-300 overflow-hidden">
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                             <div className="text-sm font-medium text-foreground">{language.name}</div>
