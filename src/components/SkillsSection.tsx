@@ -47,7 +47,7 @@ const SkillsSection: React.FC = () => {
     { name: "Portuguese", level: "Native", icon: "https://flagcdn.com/w80/br.png" },
     { name: "Spanish", level: "Fluent", icon: "https://flagcdn.com/w80/es.png" },
     { name: "English", level: "Fluent", icon: "https://flagcdn.com/w80/us.png" },
-    { name: "Catalan", level: "Intermediate", icon: "https://flagcdn.com/w80/cat.png" }
+    { name: "Catalan", level: "Intermediate", icon: "https://flagcdn.com/w80/ad.png" }
   ];
 
   return (
@@ -170,7 +170,7 @@ const SkillsSection: React.FC = () => {
                 <Globe className="h-6 w-6 text-primary mr-3" />
                 <h3 className="text-2xl font-semibold text-foreground">Languages</h3>
               </div>
-              <div className="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+              <div className="grid grid-cols-4 gap-6 max-w-3xl mx-auto">
                 {languages.map((language) => (
                   <div key={language.name} className="group relative">
                     <div className="bg-background border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
