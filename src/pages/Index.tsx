@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, Github, Linkedin, Mail, Sun, Moon, ExternalLink, Filter } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Filter, Code, Database, Wrench, BookOpen, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,7 +9,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('landing');
   const [selectedFilter, setSelectedFilter] = useState('All');
@@ -45,13 +44,33 @@ const Index = () => {
     }
   ];
 
-  const skills = [
-    { name: "React", level: 85, icon: "⚛️" },
-    { name: "Python", level: 80, icon: "🐍" },
-    { name: "TailwindCSS", level: 90, icon: "🎨" },
-    { name: "Git", level: 75, icon: "📦" },
-    { name: "SQL", level: 60, icon: "🗃️", learning: true }
-  ];
+  const skillCategories = {
+    frontend: {
+      title: "Frontend",
+      icon: Code,
+      skills: ["React", "TailwindCSS", "JavaScript", "HTML/CSS"]
+    },
+    backend: {
+      title: "Backend",
+      icon: Database,
+      skills: ["Python", "SQL", "Node.js"]
+    },
+    tools: {
+      title: "Tools",
+      icon: Wrench,
+      skills: ["Git", "VS Code", "Docker"]
+    },
+    learning: {
+      title: "Learning",
+      icon: BookOpen,
+      skills: ["TypeScript", "GraphQL", "AWS"]
+    },
+    other: {
+      title: "Languages",
+      icon: Globe,
+      skills: ["Portuguese (Native)", "English (Fluent)", "Spanish (Intermediate)"]
+    }
+  };
 
   const filterTags = ["All", "React", "Python", "TailwindCSS", "Data", "SQL"];
 
@@ -96,7 +115,18 @@ const Index = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-all duration-300 ${darkMode ? 'dark' : ''}`}>
+    <div className="min-h-screen transition-all duration-300 relative">
+      {/* Paper texture overlay */}
+      <div className="fixed inset-0 pointer-events-none opacity-10 z-0"
+           style={{
+             backgroundImage: `
+               radial-gradient(circle at 20% 50%, transparent 20%, rgba(120, 119, 108, 0.3) 21%, rgba(120, 119, 108, 0.3) 34%, transparent 35%, transparent),
+               linear-gradient(0deg, rgba(0, 0, 0, 0.1) 50%, transparent 50%),
+               radial-gradient(circle at 40% 40%, rgba(120, 119, 108, 0.2) 0%, transparent 50%)
+             `,
+             backgroundSize: '50px 50px, 2px 2px, 30px 30px'
+           }} />
+
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrollY > 50 
@@ -105,7 +135,7 @@ const Index = () => {
       }`}>
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-bold text-foreground">Mateus</div>
+            <div className="text-xl font-bold text-foreground">Mateus Cavalcanti</div>
             <div className="hidden md:flex space-x-8">
               {[
                 { name: 'About', id: 'about' },
@@ -124,14 +154,6 @@ const Index = () => {
                 </button>
               ))}
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setDarkMode(!darkMode)}
-              className="ml-4"
-            >
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
           </div>
         </div>
       </nav>
@@ -143,8 +165,8 @@ const Index = () => {
           style={{ transform: `translateY(${scrollY * 0.5}px)` }}
         />
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 text-foreground animate-fade-in">
-            Mateus
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground animate-fade-in">
+            Mateus Cavalcanti
           </h1>
           <p className="text-2xl md:text-3xl text-muted-foreground mb-12 animate-fade-in">
             Full Stack Developer
@@ -161,13 +183,13 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-secondary/10">
+      <section id="about" className="py-20 bg-secondary/10 relative">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold mb-12 text-center text-foreground">About Me</h2>
             <div className="prose prose-lg mx-auto text-muted-foreground leading-relaxed space-y-6">
               <p className="text-xl">
-                I'm Mateus — a full stack developer with a multicultural background and an open mind.
+                I'm Mateus Cavalcanti — a full stack developer with a multicultural background and an open mind.
               </p>
               <p>
                 I was born in Brazil, spent part of my teens in Spain, and studied software development in Australia. 
@@ -190,7 +212,7 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20">
+      <section id="projects" className="py-20 relative">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Projects</h2>
           
@@ -218,7 +240,7 @@ const Index = () => {
                     alt={project.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
+                  <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
                     <Button size="sm" variant="secondary">
                       <Github className="h-4 w-4 mr-2" />
                       Code
@@ -245,38 +267,38 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 bg-secondary/10">
+      <section id="skills" className="py-20 bg-secondary/10 relative">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Skills</h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {skills.map((skill) => (
-                <div key={skill.name} className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{skill.icon}</span>
-                      <span className="text-lg font-medium text-foreground">{skill.name}</span>
-                      {skill.learning && (
-                        <Badge variant="outline" className="text-xs">Learning</Badge>
-                      )}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Object.entries(skillCategories).map(([key, category]) => {
+                const IconComponent = category.icon;
+                const isOther = key === 'other';
+                return (
+                  <Card key={key} className={`p-6 hover:shadow-lg transition-all duration-300 ${isOther ? 'md:col-span-2 lg:col-span-3' : ''}`}>
+                    <div className="flex items-center space-x-3 mb-4">
+                      <IconComponent className="h-6 w-6 text-primary" />
+                      <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
                     </div>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <div 
-                      className="bg-primary rounded-full h-2 transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+                    <div className={`grid gap-3 ${isOther ? 'md:grid-cols-3' : 'grid-cols-1'}`}>
+                      {category.skills.map((skill) => (
+                        <div key={skill} className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
+                          <span className="text-muted-foreground">{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-20 relative">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
           <div className="max-w-2xl mx-auto">
@@ -306,10 +328,10 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border">
+      <footer className="py-8 border-t border-border relative">
         <div className="container mx-auto px-6 text-center">
           <p className="text-muted-foreground">
-            © 2024 Mateus. Built with React and TailwindCSS.
+            © 2024 Mateus Cavalcanti. Built with React and TailwindCSS.
           </p>
         </div>
       </footer>
