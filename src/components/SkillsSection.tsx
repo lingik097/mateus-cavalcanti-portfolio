@@ -43,7 +43,7 @@ const SkillsSection: React.FC = () => {
     }
   };
 
-  const otherSkills = [
+  const languages = [
     { name: "Portuguese", level: "Native", icon: "🇧🇷" },
     { name: "English", level: "Fluent", icon: "🇺🇸" },
     { name: "Spanish", level: "Intermediate", icon: "🇪🇸" }
@@ -54,7 +54,7 @@ const SkillsSection: React.FC = () => {
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Skills</h2>
         
-        {/* 2x2 Skills Grid with Dividers */}
+        {/* Skills Grid with Languages */}
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 gap-0 border border-border rounded-xl overflow-hidden bg-card">
             {/* Frontend - Top Left */}
@@ -109,8 +109,8 @@ const SkillsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Tools - Bottom Left */}
-            <div className="p-8 border-r border-border">
+            {/* Tools - Middle Left */}
+            <div className="p-8 border-r border-b border-border">
               <div className="flex items-center mb-6">
                 <Wrench className="h-6 w-6 text-primary mr-3" />
                 <h3 className="text-2xl font-semibold text-foreground">Tools & Technologies</h3>
@@ -135,8 +135,8 @@ const SkillsSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Learning - Bottom Right */}
-            <div className="p-8">
+            {/* Learning - Middle Right */}
+            <div className="p-8 border-b border-border">
               <div className="flex items-center mb-6">
                 <BookOpen className="h-6 w-6 text-primary mr-3" />
                 <h3 className="text-2xl font-semibold text-foreground">Currently Learning</h3>
@@ -160,34 +160,31 @@ const SkillsSection: React.FC = () => {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Languages Section */}
-        <div className="max-w-4xl mx-auto mt-20">
-          <div className="w-full h-px bg-border mb-12"></div>
-          <div className="flex items-center mb-8">
-            <Globe className="h-6 w-6 text-primary mr-3" />
-            <h3 className="text-2xl font-semibold text-foreground mr-4">Languages</h3>
-            <div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6 ml-9">
-            {otherSkills.map((skill) => (
-              <div key={skill.name} className="group relative">
-                <div className="bg-card border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
-                  <div className="text-center">
-                    <div className="text-4xl mb-3">{skill.icon}</div>
-                    <div className="h-0 group-hover:h-12 transition-all duration-300 overflow-hidden">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                        <div className="text-sm font-medium text-foreground">{skill.name}</div>
-                        <div className="text-xs text-muted-foreground mt-1">{skill.level}</div>
+            {/* Languages - Bottom Row (spans both columns) */}
+            <div className="col-span-2 p-8">
+              <div className="flex items-center mb-6">
+                <Globe className="h-6 w-6 text-primary mr-3" />
+                <h3 className="text-2xl font-semibold text-foreground">Languages</h3>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+                {languages.map((language) => (
+                  <div key={language.name} className="group relative">
+                    <div className="bg-background border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
+                      <div className="text-center">
+                        <div className="text-4xl mb-3">{language.icon}</div>
+                        <div className="h-0 group-hover:h-12 transition-all duration-300 overflow-hidden">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            <div className="text-sm font-medium text-foreground">{language.name}</div>
+                            <div className="text-xs text-muted-foreground mt-1">{language.level}</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
