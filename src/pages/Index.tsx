@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Filter, Code, Database, Wrench, BookOpen, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -46,45 +45,41 @@ const Index = () => {
 
   const skillCategories = {
     frontend: {
-      title: "Frontend",
+      title: "Frontend Development",
       icon: Code,
       skills: [
         { name: "React", icon: "⚛️" },
         { name: "TailwindCSS", icon: "🎨" },
         { name: "JavaScript", icon: "📜" },
         { name: "HTML/CSS", icon: "🌐" }
-      ],
-      position: { top: "10%", left: "15%" }
+      ]
     },
     backend: {
-      title: "Backend",
+      title: "Backend Development",
       icon: Database,
       skills: [
         { name: "Python", icon: "🐍" },
         { name: "SQL", icon: "🗃️" },
         { name: "Node.js", icon: "🟢" }
-      ],
-      position: { top: "15%", right: "20%" }
+      ]
     },
     tools: {
-      title: "Tools",
+      title: "Tools & Technologies",
       icon: Wrench,
       skills: [
         { name: "Git", icon: "🔧" },
         { name: "VS Code", icon: "💻" },
         { name: "Docker", icon: "🐳" }
-      ],
-      position: { top: "45%", left: "25%" }
+      ]
     },
     learning: {
-      title: "Learning",
+      title: "Currently Learning",
       icon: BookOpen,
       skills: [
         { name: "TypeScript", icon: "📘" },
         { name: "GraphQL", icon: "🔍" },
         { name: "AWS", icon: "☁️" }
-      ],
-      position: { top: "35%", right: "15%" }
+      ]
     }
   };
 
@@ -138,24 +133,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen transition-all duration-300 relative">
-      {/* Enhanced craft paper texture overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-20 z-0"
-           style={{
-             backgroundImage: `
-               radial-gradient(circle at 25% 25%, rgba(139, 125, 107, 0.1) 0%, transparent 50%),
-               radial-gradient(circle at 75% 75%, rgba(160, 140, 115, 0.08) 0%, transparent 50%),
-               radial-gradient(circle at 50% 50%, rgba(120, 105, 88, 0.05) 0%, transparent 50%),
-               linear-gradient(45deg, transparent 48%, rgba(140, 120, 100, 0.02) 49%, rgba(140, 120, 100, 0.02) 51%, transparent 52%),
-               linear-gradient(-45deg, transparent 48%, rgba(130, 115, 95, 0.02) 49%, rgba(130, 115, 95, 0.02) 51%, transparent 52%),
-               repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(125, 110, 90, 0.01) 2px, rgba(125, 110, 90, 0.01) 4px),
-               repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(135, 120, 100, 0.01) 2px, rgba(135, 120, 100, 0.01) 4px),
-               radial-gradient(ellipse at 20% 80%, rgba(150, 130, 110, 0.03) 0%, transparent 50%),
-               radial-gradient(ellipse at 80% 20%, rgba(145, 125, 105, 0.03) 0%, transparent 50%),
-               repeating-radial-gradient(circle at 30% 40%, transparent 0%, transparent 6px, rgba(128, 112, 92, 0.005) 6px, rgba(128, 112, 92, 0.005) 8px)
-             `,
-             backgroundSize: '200px 200px, 150px 150px, 300px 300px, 20px 20px, 25px 25px, 8px 8px, 12px 12px, 180px 180px, 220px 220px, 40px 40px'
-           }} />
-
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrollY > 50 
@@ -187,8 +164,28 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Landing Section */}
+      {/* Landing Section with Paper Texture */}
       <section id="landing" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        {/* Enhanced beige paper texture - only on landing section */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-40 z-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 25% 25%, rgba(189, 168, 140, 0.2) 0%, transparent 60%),
+              radial-gradient(circle at 75% 75%, rgba(205, 180, 150, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 50% 50%, rgba(175, 152, 125, 0.1) 0%, transparent 60%),
+              linear-gradient(45deg, transparent 46%, rgba(190, 165, 135, 0.08) 48%, rgba(190, 165, 135, 0.08) 52%, transparent 54%),
+              linear-gradient(-45deg, transparent 46%, rgba(180, 155, 125, 0.08) 48%, rgba(180, 155, 125, 0.08) 52%, transparent 54%),
+              repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(185, 160, 130, 0.04) 3px, rgba(185, 160, 130, 0.04) 6px),
+              repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(195, 170, 140, 0.04) 3px, rgba(195, 170, 140, 0.04) 6px),
+              radial-gradient(ellipse at 20% 80%, rgba(200, 175, 145, 0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(195, 170, 140, 0.08) 0%, transparent 60%),
+              repeating-radial-gradient(circle at 30% 40%, transparent 0%, transparent 8px, rgba(178, 153, 123, 0.02) 8px, rgba(178, 153, 123, 0.02) 12px)
+            `,
+            backgroundSize: '300px 300px, 250px 250px, 400px 400px, 30px 30px, 35px 35px, 12px 12px, 16px 16px, 280px 280px, 320px 320px, 60px 60px',
+            backgroundColor: 'rgba(240, 225, 200, 0.05)'
+          }}
+        />
         <div 
           className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/10"
           style={{ transform: `translateY(${scrollY * 0.5}px)` }}
@@ -295,83 +292,74 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Skills Section - Redesigned with organic layout */}
-      <section id="skills" className="py-20 bg-secondary/10 relative min-h-screen">
+      {/* Skills Section - Clean Professional Design */}
+      <section id="skills" className="py-20 bg-secondary/10 relative">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-16 text-center text-foreground">Skills</h2>
           
-          {/* Organic Skills Layout */}
-          <div className="relative max-w-6xl mx-auto h-96 mb-16">
+          {/* Skills Categories Grid */}
+          <div className="max-w-6xl mx-auto space-y-16">
             {Object.entries(skillCategories).map(([key, category]) => {
               const IconComponent = category.icon;
               return (
-                <div
-                  key={key}
-                  className="absolute"
-                  style={category.position}
-                >
-                  {/* Hand-drawn style section divider */}
-                  <div className="relative">
-                    <div className="flex items-center space-x-3 mb-6">
-                      <IconComponent className="h-6 w-6 text-primary" />
-                      <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
-                      <div className="w-16 h-0.5 bg-primary/30 transform rotate-1"></div>
-                    </div>
-                    
-                    {/* Skill Flashcards */}
-                    <div className="flex flex-wrap gap-3 max-w-64">
-                      {category.skills.map((skill, index) => (
-                        <div
-                          key={skill.name}
-                          className="group relative"
-                          style={{
-                            transform: `rotate(${(index % 2 === 0 ? 1 : -1) * (Math.random() * 6 - 3)}deg)`
-                          }}
-                        >
-                          <div className="w-16 h-16 bg-card border-2 border-border rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 hover:rotate-0 flex items-center justify-center cursor-pointer">
-                            <span className="text-2xl">{skill.icon}</span>
-                          </div>
-                          
-                          {/* Hover tooltip */}
-                          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                            {skill.name}
+                <div key={key} className="relative">
+                  {/* Category Header */}
+                  <div className="flex items-center mb-8">
+                    <IconComponent className="h-6 w-6 text-primary mr-3" />
+                    <h3 className="text-2xl font-semibold text-foreground mr-4">{category.title}</h3>
+                    <div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                  </div>
+                  
+                  {/* Skills Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 ml-9">
+                    {category.skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="group relative"
+                      >
+                        <div className="bg-card border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
+                          <div className="text-center">
+                            <div className="text-3xl mb-3">{skill.icon}</div>
+                            <div className="h-0 group-hover:h-6 transition-all duration-300 overflow-hidden">
+                              <div className="text-sm font-medium text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                {skill.name}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Languages Section - Separate box at bottom */}
-          <div className="max-w-2xl mx-auto">
-            <Card className="p-8 border-2 border-dashed border-primary/30 bg-secondary/20">
-              <div className="flex items-center space-x-3 mb-6">
-                <Globe className="h-6 w-6 text-primary" />
-                <h3 className="text-xl font-semibold text-foreground">Languages</h3>
-                <div className="flex-1 h-0.5 bg-primary/30 transform -rotate-1"></div>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                {otherSkills.map((skill, index) => (
-                  <div
-                    key={skill.name}
-                    className="group relative text-center"
-                    style={{
-                      transform: `rotate(${(index % 2 === 0 ? 1 : -1) * 2}deg)`
-                    }}
-                  >
-                    <div className="bg-card border-2 border-border rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 hover:rotate-0 cursor-pointer">
-                      <div className="text-3xl mb-2">{skill.icon}</div>
-                      <div className="text-sm font-medium text-foreground">{skill.name}</div>
-                      <div className="text-xs text-muted-foreground">{skill.level}</div>
+          {/* Languages Section */}
+          <div className="max-w-4xl mx-auto mt-20">
+            <div className="flex items-center mb-8">
+              <Globe className="h-6 w-6 text-primary mr-3" />
+              <h3 className="text-2xl font-semibold text-foreground mr-4">Languages</h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6 ml-9">
+              {otherSkills.map((skill) => (
+                <div key={skill.name} className="group relative">
+                  <div className="bg-card border-2 border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
+                    <div className="text-center">
+                      <div className="text-4xl mb-3">{skill.icon}</div>
+                      <div className="h-0 group-hover:h-12 transition-all duration-300 overflow-hidden">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                          <div className="text-sm font-medium text-foreground">{skill.name}</div>
+                          <div className="text-xs text-muted-foreground mt-1">{skill.level}</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </Card>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
