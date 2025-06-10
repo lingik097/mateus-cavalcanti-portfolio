@@ -16,7 +16,11 @@ const Navigation: React.FC<NavigationProps> = ({ scrollY, activeSection, scrollT
     }`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-bold text-foreground">Mateus Cavalcanti</div>
+          <div className="flex items-center space-x-2">
+            <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
+            <span className="text-xl font-bold text-foreground">Mateus Cavalcanti</span>
+          </div>
+
           <div className="hidden md:flex space-x-8">
             {[
               { name: 'About', id: 'about' },

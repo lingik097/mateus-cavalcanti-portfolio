@@ -36,15 +36,21 @@ const ContactSection: React.FC = () => {
           </form>
           
           <div className="flex justify-center space-x-6 mt-12">
-            <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
-              <Github className="h-5 w-5" />
-            </Button>
-            <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
-              <Linkedin className="h-5 w-5" />
-            </Button>
-            <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
-              <Mail className="h-5 w-5" />
-            </Button>
+            <a href="https://github.com/lingik097" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
+                <Github className="h-5 w-5" />
+              </Button>
+            </a>
+            <a href="https://linkedin.com/in/mateusocc" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
+                <Linkedin className="h-5 w-5" />
+              </Button>
+            </a>
+            <a href="mailto:mateusolivac.work@email.com">
+              <Button variant="outline" size="icon" className="hover:scale-110 transition-transform">
+                <Mail className="h-5 w-5" />
+              </Button>
+            </a>
           </div>
         </div>
       </div>
