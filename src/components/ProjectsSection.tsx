@@ -11,34 +11,16 @@ const ProjectsSection: React.FC = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with React frontend and Python backend",
-      tags: ["React", "Python", "TailwindCSS"],
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 2,
-      title: "Data Analytics Dashboard",
-      description: "Interactive dashboard for data visualization and analysis",
-      tags: ["Python", "Data", "SQL"],
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
-      github: "#",
-      live: "#"
-    },
-    {
-      id: 3,
       title: "Portfolio Website",
       description: "Responsive personal portfolio with modern design",
       tags: ["React", "TailwindCSS"],
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
-      github: "#",
+      github: "https://github.com/lingik097/portfolio-website",
       live: "#"
     }
   ];
 
-  const filterTags = ["All", "React", "Python", "TailwindCSS", "Data", "SQL"];
+  const filterTags = ["All", ...new Set(projects.flatMap(project => project.tags))];
 
   const filteredProjects = selectedFilter === "All" 
     ? projects 
@@ -76,14 +58,18 @@ const ProjectsSection: React.FC = () => {
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                  <Button size="sm" variant="secondary">
-                    <Github className="h-4 w-4 mr-2" />
-                    Code
-                  </Button>
-                  <Button size="sm" variant="secondary">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Live
-                  </Button>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <Button size="sm" variant="secondary">
+                      <Github className="h-4 w-4 mr-2" />
+                      Code
+                    </Button>
+                  </a>
+                  <a href={project.live} target={project.live !== "#" ? "_blank" : undefined} rel={project.live !== "#" ? "noopener noreferrer" : undefined}>
+                    <Button size="sm" variant="secondary">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Live
+                    </Button>
+                  </a>
                 </div>
               </div>
               <CardContent className="p-6">
