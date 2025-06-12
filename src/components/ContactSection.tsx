@@ -1,21 +1,60 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { sendContactEmail } from '@/api/send-email';
 import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
+    setIsSubmitting(true);
+
+    try {
+      await sendContactEmail(formData);
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      toast({
+        title: "Failed to send message",
+        description: "There was an error sending your message. Please try again or contact me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -27,12 +66,44 @@ const ContactSection: React.FC = () => {
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <Input placeholder="Your Name" required />
-              <Input type="email" placeholder="Your Email" required />
+              <Input 
+                name="name"
+                placeholder="Your Name" 
+                value={formData.name}
+                onChange={handleInputChange}
+                required 
+              />
+              <Input 
+                name="email"
+                type="email" 
+                placeholder="Your Email" 
+                value={formData.email}
+                onChange={handleInputChange}
+                required 
+              />
             </div>
-            <Input placeholder="Subject" required />
-            <Textarea placeholder="Your Message" rows={6} required />
-            <Button type="submit" className="w-full">Send Message</Button>
+            <Input 
+              name="subject"
+              placeholder="Subject" 
+              value={formData.subject}
+              onChange={handleInputChange}
+              required 
+            />
+            <Textarea 
+              name="message"
+              placeholder="Your Message" 
+              rows={6} 
+              value={formData.message}
+              onChange={handleInputChange}
+              required 
+            />
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </Button>
           </form>
           
           <div className="flex justify-center space-x-6 mt-12">
