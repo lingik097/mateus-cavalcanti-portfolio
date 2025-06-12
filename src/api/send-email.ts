@@ -12,7 +12,7 @@ export async function sendContactEmail(formData: {
 }) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'contact@mateuscavalcanti.com', // Replace with your verified domain
+      from: 'contact.mateuscavalcanti.com', // Replace with your verified domain
       to: ['mateusolivac.work@email.com'],
       subject: `Portfolio Contact: ${formData.subject}`,
       react: EmailTemplate({ firstName: formData.name }),
