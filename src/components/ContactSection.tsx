@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { sendContactEmail } from '@/api/send-email';
 import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
@@ -31,22 +30,39 @@ const ContactSection: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await sendContactEmail(formData);
-      
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+      // Netlify Forms handles the submission automatically
+      // We just need to encode the form data
+      const formDataToSend = new FormData();
+      formDataToSend.append('form-name', 'contact');
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataToSend as any).toString()
       });
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending form:', error);
       toast({
         title: "Failed to send message",
         description: "There was an error sending your message. Please try again or contact me directly.",
@@ -64,7 +80,16 @@ const ContactSection: React.FC = () => {
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
         <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form 
+            name="contact" 
+            method="POST" 
+            data-netlify="true"
+            onSubmit={handleSubmit} 
+            className="space-y-6"
+          >
+            {/* Hidden input for Netlify form detection */}
+            <input type="hidden" name="form-name" value="contact" />
+            
             <div className="grid md:grid-cols-2 gap-6">
               <Input 
                 name="name"
