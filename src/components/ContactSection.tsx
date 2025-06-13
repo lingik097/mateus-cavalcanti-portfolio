@@ -29,21 +29,53 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    console.log('Form submission started');
+    console.log('Current URL:', window.location.href);
+    console.log('Form data:', formData);
+
     try {
-      // Netlify Forms handles the submission automatically
-      // We just need to encode the form data
-      const formDataToSend = new FormData();
+      // Check if we're on Netlify (or a deployed environment)
+      const isNetlify = window.location.hostname.includes('netlify') || 
+                       window.location.hostname.includes('lovableproject.com') ||
+                       process.env.NODE_ENV === 'production';
+      
+      console.log('Is Netlify environment?', isNetlify);
+
+      if (!isNetlify) {
+        // For development/preview environments, show a message instead of trying to submit
+        toast({
+          title: "Development Mode",
+          description: "Contact form submissions only work when deployed to Netlify. Your message would be: " + formData.message.substring(0, 50) + "...",
+        });
+        
+        // Reset form anyway for testing
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        return;
+      }
+
+      // Netlify Forms submission for production
+      const formDataToSend = new URLSearchParams();
       formDataToSend.append('form-name', 'contact');
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('subject', formData.subject);
       formDataToSend.append('message', formData.message);
 
+      console.log('Submitting to Netlify Forms...');
+
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSend as any).toString()
+        body: formDataToSend.toString()
       });
+
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
 
       if (response.ok) {
         toast({
@@ -59,13 +91,13 @@ const ContactSection: React.FC = () => {
           message: ''
         });
       } else {
-        throw new Error('Form submission failed');
+        throw new Error(`Form submission failed with status: ${response.status}`);
       }
     } catch (error) {
       console.error('Error sending form:', error);
       toast({
         title: "Failed to send message",
-        description: "There was an error sending your message. Please try again or contact me directly.",
+        description: "Netlify Forms only work when deployed to Netlify. Please deploy this site to Netlify for the contact form to function properly.",
         variant: "destructive",
       });
     } finally {
