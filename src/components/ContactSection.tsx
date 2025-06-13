@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { sendContactEmail } from '@/api/send-email';
+import { supabase } from '@/integrations/supabase/client';
 import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
@@ -31,7 +31,18 @@ const ContactSection: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await sendContactEmail(formData);
+      console.log('Sending email via Supabase Edge Function...');
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw new Error(error.message || 'Failed to send email');
+      }
+
+      console.log('Email sent successfully:', data);
       
       toast({
         title: "Message sent successfully!",
