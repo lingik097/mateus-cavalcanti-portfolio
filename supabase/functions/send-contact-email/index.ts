@@ -61,7 +61,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: ["mateusolivac@email.com"],
+      to: ["mateusolivac.work@gmail.com"],
       subject: `Portfolio Contact: ${subject}`,
       html: emailHtml,
       replyTo: email, // Allow direct reply to the sender
