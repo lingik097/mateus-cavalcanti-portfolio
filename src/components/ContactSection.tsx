@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { sendContactEmail } from '@/api/send-email';
 import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
@@ -29,52 +30,26 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    console.log('Form submission started');
-    console.log('Form data:', formData);
-
     try {
-      // Encode form data for Netlify
-      const encode = (data: any) => {
-        return Object.keys(data)
-          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-          .join("&");
-      };
-
-      console.log('Submitting to Netlify Forms...');
-
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({
-          'form-name': 'contact',
-          ...formData
-        })
+      await sendContactEmail(formData);
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
-
-      if (response.ok) {
-        toast({
-          title: "Message sent successfully!",
-          description: "Thank you for reaching out. I'll get back to you soon.",
-        });
-
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-      } else {
-        throw new Error(`Form submission failed with status: ${response.status}`);
-      }
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
     } catch (error) {
-      console.error('Error sending form:', error);
+      console.error('Error sending email:', error);
       toast({
         title: "Failed to send message",
-        description: "There was an error sending your message. Please try again later.",
+        description: "There was an error sending your message. Please try again or contact me directly.",
         variant: "destructive",
       });
     } finally {
@@ -86,22 +61,10 @@ const ContactSection: React.FC = () => {
     <section id="contact" className="py-20 relative">
       <TextureBackground variant="base" className="opacity-40 z-0" />
       
-      {/* Hidden form for Netlify detection */}
-      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="subject" />
-        <textarea name="message"></textarea>
-      </form>
-      
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Hidden input for Netlify form detection */}
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="bot-field" />
-            
             <div className="grid md:grid-cols-2 gap-6">
               <Input 
                 name="name"
