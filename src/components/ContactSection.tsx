@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -33,19 +34,21 @@ const ContactSection: React.FC = () => {
 
     try {
       // Encode form data for Netlify
-      const formDataToSend = new FormData();
-      formDataToSend.append('form-name', 'contact');
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('subject', formData.subject);
-      formDataToSend.append('message', formData.message);
+      const encode = (data: any) => {
+        return Object.keys(data)
+          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+          .join("&");
+      };
 
       console.log('Submitting to Netlify Forms...');
 
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSend as any).toString()
+        body: encode({
+          'form-name': 'contact',
+          ...formData
+        })
       });
 
       console.log('Response status:', response.status);
@@ -84,7 +87,7 @@ const ContactSection: React.FC = () => {
       <TextureBackground variant="base" className="opacity-40 z-0" />
       
       {/* Hidden form for Netlify detection */}
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="subject" />
