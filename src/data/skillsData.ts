@@ -43,8 +43,7 @@ export const skillCategories: Record<string, SkillCategory> = {
     icon: Wrench,
     skills: [
       { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-      { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-      { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
+      { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" }
     ]
   },
   learning: {
@@ -52,7 +51,8 @@ export const skillCategories: Record<string, SkillCategory> = {
     icon: BookOpen,
     skills: [
       { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-      { name: "SQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" }
+      { name: "SQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+      { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
     ]
   }
 };
@@ -61,5 +61,5 @@ export const languages: Language[] = [
   { name: "Portuguese", level: "Native", icon: "https://flagcdn.com/w80/br.png" },
   { name: "Spanish", level: "Fluent", icon: "https://flagcdn.com/w80/es.png" },
   { name: "English", level: "Fluent", icon: "https://flagcdn.com/w80/us.png" },
-  { name: "Catalan", level: "Intermediate", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Flag_of_Catalonia.svg/80px-Flag_of_Catalonia.svg.png" }
+  { name: "Catalan", level: "Intermediate", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/250px-Flag_of_Catalonia.svg.png" }
 ];
