@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -30,36 +29,11 @@ const ContactSection: React.FC = () => {
     setIsSubmitting(true);
 
     console.log('Form submission started');
-    console.log('Current URL:', window.location.href);
     console.log('Form data:', formData);
 
     try {
-      // Check if we're on Netlify (or a deployed environment)
-      const isNetlify = window.location.hostname.includes('netlify') || 
-                       window.location.hostname.includes('lovableproject.com') ||
-                       process.env.NODE_ENV === 'production';
-      
-      console.log('Is Netlify environment?', isNetlify);
-
-      if (!isNetlify) {
-        // For development/preview environments, show a message instead of trying to submit
-        toast({
-          title: "Development Mode",
-          description: "Contact form submissions only work when deployed to Netlify. Your message would be: " + formData.message.substring(0, 50) + "...",
-        });
-        
-        // Reset form anyway for testing
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-        return;
-      }
-
-      // Netlify Forms submission for production
-      const formDataToSend = new URLSearchParams();
+      // Encode form data for Netlify
+      const formDataToSend = new FormData();
       formDataToSend.append('form-name', 'contact');
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
@@ -71,7 +45,7 @@ const ContactSection: React.FC = () => {
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formDataToSend.toString()
+        body: new URLSearchParams(formDataToSend as any).toString()
       });
 
       console.log('Response status:', response.status);
@@ -97,7 +71,7 @@ const ContactSection: React.FC = () => {
       console.error('Error sending form:', error);
       toast({
         title: "Failed to send message",
-        description: "Netlify Forms only work when deployed to Netlify. Please deploy this site to Netlify for the contact form to function properly.",
+        description: "There was an error sending your message. Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -109,18 +83,21 @@ const ContactSection: React.FC = () => {
     <section id="contact" className="py-20 relative">
       <TextureBackground variant="base" className="opacity-40 z-0" />
       
+      {/* Hidden form for Netlify detection */}
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+      </form>
+      
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
         <div className="max-w-2xl mx-auto">
-          <form 
-            name="contact" 
-            method="POST" 
-            data-netlify="true"
-            onSubmit={handleSubmit} 
-            className="space-y-6"
-          >
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Hidden input for Netlify form detection */}
             <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="bot-field" />
             
             <div className="grid md:grid-cols-2 gap-6">
               <Input 
