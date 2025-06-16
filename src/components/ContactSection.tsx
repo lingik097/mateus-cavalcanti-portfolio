@@ -103,7 +103,7 @@ const ContactSection: React.FC = () => {
             <Textarea 
               name="message"
               placeholder="Your Message" 
-              rows={6} 
+              rows={7} 
               value={formData.message}
               onChange={handleInputChange}
               required 
