@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navigation from '@/components/Navigation';
 import LandingSection from '@/components/LandingSection';
 import AboutSection from '@/components/AboutSection';
@@ -8,6 +9,7 @@ import SkillsSection from '@/components/SkillsSection';
 import ContactSection from '@/components/ContactSection';
 
 const Index = () => {
+  const { t } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('landing');
 
@@ -64,7 +66,7 @@ const Index = () => {
       <footer className="py-8 border-t border-border relative">
         <div className="container mx-auto px-6 text-center">
           <p className="text-muted-foreground">
-            © 2025 Mateus Cavalcanti. Built with React and TailwindCSS.
+            {t('footer.copyright')}
           </p>
         </div>
       </footer>

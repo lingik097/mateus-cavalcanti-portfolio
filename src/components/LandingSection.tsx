@@ -2,6 +2,7 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 import TextureBackground from './TextureBackground';
 
 interface LandingSectionProps {
@@ -10,6 +11,8 @@ interface LandingSectionProps {
 }
 
 const LandingSection: React.FC<LandingSectionProps> = ({ scrollY, scrollToSection }) => {
+  const { t } = useLanguage();
+
   return (
     <section id="landing" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Enhanced beige paper texture */}
@@ -41,7 +44,7 @@ const LandingSection: React.FC<LandingSectionProps> = ({ scrollY, scrollToSectio
               `
             }}
           >
-            Mateus Cavalcanti
+            {t('landing.name')}
           </h1>
           <p 
             className="text-2xl md:text-3xl text-muted-foreground mb-12 animate-fade-in"
@@ -52,7 +55,7 @@ const LandingSection: React.FC<LandingSectionProps> = ({ scrollY, scrollToSectio
               `
             }}
           >
-            Full Stack Developer
+            {t('landing.title')}
           </p>
         </div>
         

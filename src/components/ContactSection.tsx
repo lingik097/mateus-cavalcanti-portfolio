@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import TextureBackground from './TextureBackground';
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -45,8 +47,8 @@ const ContactSection: React.FC = () => {
       console.log('Email sent successfully:', data);
       
       toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        title: t('contact.success.title'),
+        description: t('contact.success.description'),
       });
 
       // Reset form
@@ -59,8 +61,8 @@ const ContactSection: React.FC = () => {
     } catch (error) {
       console.error('Error sending email:', error);
       toast({
-        title: "Failed to send message",
-        description: "There was an error sending your message. Please try again or contact me directly.",
+        title: t('contact.error.title'),
+        description: t('contact.error.description'),
         variant: "destructive",
       });
     } finally {
@@ -73,13 +75,13 @@ const ContactSection: React.FC = () => {
       <TextureBackground variant="base" className="opacity-40 z-0" />
       
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Get In Touch</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-foreground">{t('contact.title')}</h2>
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <Input 
                 name="name"
-                placeholder="Your Name" 
+                placeholder={t('contact.name')} 
                 value={formData.name}
                 onChange={handleInputChange}
                 required 
@@ -87,7 +89,7 @@ const ContactSection: React.FC = () => {
               <Input 
                 name="email"
                 type="email" 
-                placeholder="Your Email" 
+                placeholder={t('contact.email')} 
                 value={formData.email}
                 onChange={handleInputChange}
                 required 
@@ -95,14 +97,14 @@ const ContactSection: React.FC = () => {
             </div>
             <Input 
               name="subject"
-              placeholder="Subject" 
+              placeholder={t('contact.subject')} 
               value={formData.subject}
               onChange={handleInputChange}
               required 
             />
             <Textarea 
               name="message"
-              placeholder="Your Message" 
+              placeholder={t('contact.message')} 
               rows={7} 
               value={formData.message}
               onChange={handleInputChange}
@@ -113,7 +115,7 @@ const ContactSection: React.FC = () => {
               className="w-full" 
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {isSubmitting ? t('contact.sending') : t('contact.send')}
             </Button>
           </form>
           

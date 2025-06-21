@@ -1,18 +1,21 @@
+
 import React, { useState } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/contexts/LanguageContext';
 import TextureBackground from './TextureBackground';
 
 const ProjectsSection: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState('All');
+  const { t } = useLanguage();
+  const [selectedFilter, setSelectedFilter] = useState(t('projects.filter.all'));
 
   const projects = [
     {
       id: 1,
-      title: "Portfolio Website",
-      description: "Responsive personal portfolio with modern design",
+      title: t('projects.portfolio.title'),
+      description: t('projects.portfolio.description'),
       tags: ["React", "TailwindCSS"],
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
       github: "https://github.com/lingik097/portfolio-website",
@@ -20,9 +23,9 @@ const ProjectsSection: React.FC = () => {
     }
   ];
 
-  const filterTags = ["All", ...new Set(projects.flatMap(project => project.tags))];
+  const filterTags = [t('projects.filter.all'), ...new Set(projects.flatMap(project => project.tags))];
 
-  const filteredProjects = selectedFilter === "All" 
+  const filteredProjects = selectedFilter === t('projects.filter.all')
     ? projects 
     : projects.filter(project => project.tags.includes(selectedFilter));
 
@@ -31,7 +34,7 @@ const ProjectsSection: React.FC = () => {
       <TextureBackground variant="base" className="opacity-40 z-0" />
       
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-12 text-center text-foreground">Projects</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center text-foreground">{t('projects.title')}</h2>
         
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -61,13 +64,13 @@ const ProjectsSection: React.FC = () => {
                   <a href={project.github} target="_blank" rel="noopener noreferrer">
                     <Button size="sm" variant="secondary">
                       <Github className="h-4 w-4 mr-2" />
-                      Code
+                      {t('projects.code')}
                     </Button>
                   </a>
                   <a href={project.live} target={project.live !== "#" ? "_blank" : undefined} rel={project.live !== "#" ? "noopener noreferrer" : undefined}>
                     <Button size="sm" variant="secondary">
                       <ExternalLink className="h-4 w-4 mr-2" />
-                      Live
+                      {t('projects.live')}
                     </Button>
                   </a>
                 </div>
