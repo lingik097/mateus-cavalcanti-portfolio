@@ -15,8 +15,8 @@ const LanguagesGrid: React.FC = () => {
         <h3 className="text-lg md:text-2xl font-semibold text-foreground">{t('skills.languages')}</h3>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
-        {languages.map((language) => (
-          <LanguageCard key={language.name} language={language} />
+        {languages.map((language, index) => (
+          <LanguageCard key={`language-${index}`} language={language} />
         ))}
       </div>
     </div>
