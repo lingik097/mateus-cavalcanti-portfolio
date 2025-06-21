@@ -1,5 +1,7 @@
 
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitch from './LanguageSwitch';
 
 interface NavigationProps {
   scrollY: number;
@@ -8,6 +10,8 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ scrollY, activeSection, scrollToSection }) => {
+  const { t } = useLanguage();
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       scrollY > 50 
@@ -21,23 +25,31 @@ const Navigation: React.FC<NavigationProps> = ({ scrollY, activeSection, scrollT
             <span className="text-xl font-bold text-foreground">Mateus Cavalcanti</span>
           </div>
 
-          <div className="hidden md:flex space-x-8">
-            {[
-              { name: 'About', id: 'about' },
-              { name: 'Projects', id: 'projects' },
-              { name: 'Skills', id: 'skills' },
-              { name: 'Contact', id: 'contact' }
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`transition-colors hover:text-primary ${
-                  activeSection === item.id ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
+          <div className="hidden md:flex items-center space-x-8">
+            <div className="flex space-x-8">
+              {[
+                { name: t('nav.about'), id: 'about' },
+                { name: t('nav.projects'), id: 'projects' },
+                { name: t('nav.skills'), id: 'skills' },
+                { name: t('nav.contact'), id: 'contact' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`transition-colors hover:text-primary ${
+                    activeSection === item.id ? 'text-primary' : 'text-muted-foreground'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+            <LanguageSwitch />
+          </div>
+
+          {/* Mobile menu with language switch */}
+          <div className="md:hidden flex items-center space-x-4">
+            <LanguageSwitch />
           </div>
         </div>
       </div>
