@@ -7,20 +7,32 @@ export interface Skill {
 }
 
 export interface SkillCategory {
-  title: string;
+  title: {
+    en: string;
+    'pt-br': string;
+  };
   icon: any;
   skills: Skill[];
 }
 
 export interface Language {
-  name: string;
-  level: string;
+  name: {
+    en: string;
+    'pt-br': string;
+  };
+  level: {
+    en: string;
+    'pt-br': string;
+  };
   icon: string;
 }
 
 export const skillCategories: Record<string, SkillCategory> = {
   frontend: {
-    title: "Frontend Development",
+    title: {
+      en: "Frontend Development",
+      'pt-br': "Desenvolvimento Frontend"
+    },
     icon: Code,
     skills: [
       { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
@@ -30,7 +42,10 @@ export const skillCategories: Record<string, SkillCategory> = {
     ]
   },
   backend: {
-    title: "Backend Development",
+    title: {
+      en: "Backend Development",
+      'pt-br': "Desenvolvimento Backend"
+    },
     icon: Database,
     skills: [
       { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
@@ -39,7 +54,10 @@ export const skillCategories: Record<string, SkillCategory> = {
     ]
   },
   tools: {
-    title: "Tools & Technologies",
+    title: {
+      en: "Tools & Technologies",
+      'pt-br': "Ferramentas & Tecnologias"
+    },
     icon: Wrench,
     skills: [
       { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
@@ -47,7 +65,10 @@ export const skillCategories: Record<string, SkillCategory> = {
     ]
   },
   learning: {
-    title: "Currently Learning",
+    title: {
+      en: "Currently Learning",
+      'pt-br': "Aprendendo Atualmente"
+    },
     icon: BookOpen,
     skills: [
       { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
@@ -58,8 +79,24 @@ export const skillCategories: Record<string, SkillCategory> = {
 };
 
 export const languages: Language[] = [
-  { name: "Portuguese", level: "Native", icon: "https://flagcdn.com/w80/br.png" },
-  { name: "Spanish", level: "Fluent", icon: "https://flagcdn.com/w80/es.png" },
-  { name: "English", level: "Fluent", icon: "https://flagcdn.com/w80/us.png" },
-  { name: "Catalan", level: "Intermediate", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/250px-Flag_of_Catalonia.svg.png" }
+  { 
+    name: { en: "Portuguese", 'pt-br': "Português" }, 
+    level: { en: "Native", 'pt-br': "Nativo" }, 
+    icon: "https://flagcdn.com/w80/br.png" 
+  },
+  { 
+    name: { en: "Spanish", 'pt-br': "Espanhol" }, 
+    level: { en: "Fluent", 'pt-br': "Fluente" }, 
+    icon: "https://flagcdn.com/w80/es.png" 
+  },
+  { 
+    name: { en: "English", 'pt-br': "Inglês" }, 
+    level: { en: "Fluent", 'pt-br': "Fluente" }, 
+    icon: "https://flagcdn.com/w80/us.png" 
+  },
+  { 
+    name: { en: "Catalan", 'pt-br': "Catalão" }, 
+    level: { en: "Intermediate", 'pt-br': "Intermediário" }, 
+    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Catalonia.svg/250px-Flag_of_Catalonia.svg.png" 
+  }
 ];

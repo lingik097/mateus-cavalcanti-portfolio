@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type Language = 'en' | 'pt-br';
@@ -19,7 +18,7 @@ export const useLanguage = () => {
   return context;
 };
 
-// Translation dictionaries
+// Translation dictionaries - keeping only general site translations
 const translations = {
   en: {
     // Navigation
@@ -39,11 +38,8 @@ const translations = {
     'about.tech': "My path into tech was shaped by curiosity and persistence. I enjoy building clean, responsive, and user-friendly web applications — mainly using React, Python, and TailwindCSS, while also expanding my skills in SQL. I approach development not just as a technical skill, but as a way to solve problems thoughtfully and communicate ideas clearly.",
     'about.reflection': "This site is a reflection of who I am — not just a developer, but someone who values creativity, communication, and continuous learning.",
     
-    // Projects Section
+    // Projects Section - keeping only button labels
     'projects.title': 'Projects',
-    'projects.filter.all': 'All',
-    'projects.portfolio.title': 'Portfolio Website',
-    'projects.portfolio.description': 'Responsive personal portfolio with modern design',
     'projects.code': 'Code',
     'projects.live': 'Live',
     
@@ -89,11 +85,8 @@ const translations = {
     'about.tech': 'Meu caminho na tecnologia foi moldado pela curiosidade e persistência. Gosto de construir aplicações web limpas, responsivas e amigáveis ao usuário — principalmente usando React, Python e TailwindCSS, enquanto também expando minhas habilidades em SQL. Abordo o desenvolvimento não apenas como uma habilidade técnica, mas como uma forma de resolver problemas de forma reflexiva e comunicar ideias claramente.',
     'about.reflection': 'Este site é um reflexo de quem eu sou — não apenas um desenvolvedor, mas alguém que valoriza criatividade, comunicação e aprendizado contínuo.',
     
-    // Projects Section
+    // Projects Section - keeping only button labels
     'projects.title': 'Projetos',
-    'projects.filter.all': 'Todos',
-    'projects.portfolio.title': 'Site Portfólio',
-    'projects.portfolio.description': 'Portfólio pessoal responsivo com design moderno',
     'projects.code': 'Código',
     'projects.live': 'Ao Vivo',
     

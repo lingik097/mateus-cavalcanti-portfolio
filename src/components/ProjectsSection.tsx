@@ -8,14 +8,20 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import TextureBackground from './TextureBackground';
 
 const ProjectsSection: React.FC = () => {
-  const { t } = useLanguage();
-  const [selectedFilter, setSelectedFilter] = useState(t('projects.filter.all'));
+  const { language, t } = useLanguage();
 
+  // Projects with embedded translations
   const projects = [
     {
       id: 1,
-      title: t('projects.portfolio.title'),
-      description: t('projects.portfolio.description'),
+      title: {
+        en: 'Portfolio Website',
+        'pt-br': 'Site Portfólio'
+      },
+      description: {
+        en: 'Responsive personal portfolio with modern design',
+        'pt-br': 'Portfólio pessoal responsivo com design moderno'
+      },
       tags: ["React", "TailwindCSS"],
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
       github: "https://github.com/lingik097/portfolio-website",
@@ -23,9 +29,24 @@ const ProjectsSection: React.FC = () => {
     }
   ];
 
-  const filterTags = [t('projects.filter.all'), ...new Set(projects.flatMap(project => project.tags))];
+  // Filter options with translations
+  const filterOptions = {
+    all: {
+      en: 'All',
+      'pt-br': 'Todos'
+    }
+  };
 
-  const filteredProjects = selectedFilter === t('projects.filter.all')
+  const [selectedFilter, setSelectedFilter] = useState(filterOptions.all[language]);
+
+  // Update filter when language changes
+  React.useEffect(() => {
+    setSelectedFilter(filterOptions.all[language]);
+  }, [language]);
+
+  const filterTags = [filterOptions.all[language], ...new Set(projects.flatMap(project => project.tags))];
+
+  const filteredProjects = selectedFilter === filterOptions.all[language]
     ? projects 
     : projects.filter(project => project.tags.includes(selectedFilter));
 
@@ -57,7 +78,7 @@ const ProjectsSection: React.FC = () => {
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={project.image} 
-                  alt={project.title}
+                  alt={project.title[language]}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-background/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
@@ -76,8 +97,8 @@ const ProjectsSection: React.FC = () => {
                 </div>
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold mb-3 text-foreground">{project.title[language]}</h3>
+                <p className="text-muted-foreground mb-4">{project.description[language]}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <Badge key={tag} variant="secondary">{tag}</Badge>
